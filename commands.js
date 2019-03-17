@@ -35,6 +35,29 @@ const commandLibrary = {
 			if (err) throw err;
 			done(data);
 		});
+	},
+
+	"head": function(fullPath) {
+		const fileName = fullPath[0];
+		fs.readFile(fileName, (err, data) => {
+			if (err) throw err;
+			data = data.toString().split("\n");
+			data.length = 10;
+			const stringData = data.join("\n");
+			done(stringData);
+		});
+	},
+
+	"tail": function(fullPath) {
+		const fileName = fullPath[0];
+		fs.readFile(fileName, (err, data) => {
+			if (err) throw err;
+			data = data.toString().split("\n").reverse();
+			data.length = 10;
+			data.reverse();
+			const stringData = data.join("\n");
+			console.log(stringData);
+		});
 	}
 };
 
