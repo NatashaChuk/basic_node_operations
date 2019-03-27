@@ -12,15 +12,32 @@ function evaluateCmd(userInput) {
 	const command = userInputArray[0];
 
 	switch (command) {
-		case "echo":
+		default:
+			errorHandler();
+			break;
 
+		case "echo":
 			commandLibrary.echo(userInputArray.slice(1).join(" "));
 			break;
-		
+
 		case "cat":
 			commandLibrary.cat(userInputArray.slice(1));
 			break;
+
+		case "head";
+			commandLibrary.head(userInputArray.slice(1));
+			break;
+
+		case "tail";
+			commandLibrary.tail.(userInputArray.slice(1));
+			break;
+
 	}
+}
+
+
+function errorHandler() {
+	done('Command not known');
 }
 
 const commandLibrary = {
@@ -34,6 +51,30 @@ const commandLibrary = {
 		fs.readFile(fileName, (err, data) => {
 			if (err) throw err;
 			done(data);
+		});
+	},
+
+	"head": function(fullPath) {
+		const fileName = fullPath[0];
+		fs.readFile(fileName, (err, data) => {
+			if (err) throw err;
+			data = data.toString().split("\n");
+			data.length = 5;
+			const stringData = data.join("\n");
+			
+			done(stringData);
+		});
+	},
+
+	"tail": function(fullPath) {
+		const fileName = fullPath[0];
+		fs.readFile(fileName, (err, data) => {
+			if (err) throw err;
+			data = data.toString().split("\n").reverse();
+			data.length = 5;
+			data.reverse();
+			const stringData = data.join("\n");
+			console.log(stringData);
 		});
 	}
 };
